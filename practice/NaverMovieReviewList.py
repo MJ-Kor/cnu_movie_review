@@ -16,26 +16,19 @@ for i, one in enumerate(review_list):
     score = one.select('div.star_score > em')[0].get_text()
 
     # 리뷰 정보 수집
-    review = one.select('div.score_reple > p > span')
-    j = 0
-
-    if len(review) == 2:
-        j = 1
-    elif len(review) == 3:
-        j = 2
-
-    review_text = review[j].get_text().strip()
+    review = one.select('div.score_reple > p > span')[-1].get_text().strip()
 
     # 작성자(닉네임) 정보 수집
     original_writer = one.select('div.score_reple dt em')[0].get_text().strip()
     idx_end = original_writer.find('(')
     writer = original_writer[0:idx_end]
+
     # 날짜 정보 수집
     original_date = one.select('div.score_reple dt em')[1].get_text()
     date = original_date[:10]
 
 
-    print(':: REVIEW: {}'.format(review_text))
+    print(':: REVIEW: {}'.format(review))
     print(':: WRITER: {}'.format(writer))
     print(':: SCORE: {}'.format(score))
     print(':: DATE: {}'.format(date))
